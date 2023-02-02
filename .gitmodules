@@ -1,0 +1,9 @@
+[submodule "lvgl"]
+	path = lvgl
+	url = git@github.com:jambamamba/lvgl.git
+[submodule "lv_port_pc_eclipse"]
+	path = lv_port_pc_eclipse
+	url = git@github.com:jambamamba/lv_port_pc_eclipse.git
+[submodule "lv_drivers"]
+	path = lv_drivers
+	url = git@github.com:jambamamba/lv_drivers.git
