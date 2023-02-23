@@ -75,7 +75,7 @@ add_definitions(-DLV_CONF_INCLUDE_SIMPLE -DUSE_WAYLAND -DLV_WAYLAND_WL_SHELL)#ta
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
    target_include_directories(lvgl PRIVATE ${LVGL_INC_DIRS} "${SYSROOT_COMPONENTS}/aarch64/wayland/usr/include/")
    target_compile_definitions(lvgl PRIVATE SCREEN_HOR_RES=800 SCREEN_VER_RES=480)
-elseif((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") OR (CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64"))
+elseif((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") OR (CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64") OR MINGW)
    target_compile_definitions(lvgl PRIVATE 
       LV_CONF_INCLUDE_SIMPLE 
       USE_SDL=1 
@@ -96,6 +96,10 @@ elseif((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") OR (CMAKE_SYSTEM_PROCESSOR MATC
    )
    target_include_directories(lvgl PRIVATE ${INC_DIRS})
 else()
-   message(FATAL_ERROR "target must be aarch64 or x86_64 or AMD64")
+   message(FATAL_ERROR "target must be aarch64 or x86_64 or mingw. Your CMAKE_SYSTEM_PROCESSOR is ${CMAKE_SYSTEM_PROCESSOR}")
+endif()
+
+if(MINGW)
+   target_link_libraries(lvgl PRIVATE SDL2)
 endif()
 
